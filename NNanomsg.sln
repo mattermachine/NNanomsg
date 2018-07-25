@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NNanomsg", "NNanomsg\NNanomsg.csproj", "{771786BF-42FA-491E-9FB3-29910F15CC5E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{5F61AEF2-26D6-42EF-9057-C43BCF09D506}"
@@ -16,10 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NNanomsg.NETStandard", "NNanomsg.NETStandard\NNanomsg.NETStandard.csproj", "{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}"
+EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = NNanomsg.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -79,8 +80,30 @@ Global
 		{CE1E3C5E-890D-4099-9799-88EE20745BBB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CE1E3C5E-890D-4099-9799-88EE20745BBB}.Release|Win32.ActiveCfg = Release|Any CPU
 		{CE1E3C5E-890D-4099-9799-88EE20745BBB}.Release|x64.ActiveCfg = Release|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Debug|Win32.Build.0 = Debug|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Debug|x64.Build.0 = Debug|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Release|Win32.ActiveCfg = Release|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Release|Win32.Build.0 = Release|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Release|x64.ActiveCfg = Release|Any CPU
+		{64C9E173-4FE5-45F8-8B1F-6BCA89E1FEA5}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF7D1DA2-FE12-4AC9-B440-D623C202BAC2}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = NNanomsg.vsmdi
 	EndGlobalSection
 EndGlobal

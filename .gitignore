@@ -2,6 +2,8 @@
 Debug
 NNanomsg/bin
 NNanomsg/obj
+NNanomsg.NETStandard/bin
+NNanomsg.NETStandard/obj
 Test/bin
 Test/obj
 Example/bin
@@ -19,3 +21,4 @@ Debug/
 *.vsp
 *.psess
 packages/
+.vs/
