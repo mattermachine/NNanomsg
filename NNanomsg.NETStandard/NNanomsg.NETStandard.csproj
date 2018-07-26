@@ -1,14 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <Content Include="..\NNanomsg\**\*.cs">
+    <Compile Include="..\NNanomsg\**\*.cs">
       <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
       <Visible>true</Visible>
-    </Content>
+    </Compile>
   </ItemGroup>
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
