@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <Compile Include="..\NNanomsg\**\*.cs">
@@ -7,9 +7,31 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="x64\nanomsg.dll" />
+    <None Remove="x86\nanomsg.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="x64\nanomsg.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\nanomsg.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Subor.NNanomsg.NETStandard</PackageId>
+    <Authors>mhowlett (minor changes and packaged by Subor)</Authors>
+    <RepositoryUrl>https://github.com/subor/NNanomsg</RepositoryUrl>
+    <PackageTags>subor nanomsg</PackageTags>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>subor_vs_sign.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">

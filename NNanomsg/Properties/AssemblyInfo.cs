@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NNanomsg")]
-[assembly: AssemblyDescription(".NET binding for nanomsg")]
+[assembly: AssemblyDescription(".NET binding for nanomsg\r\n\r\nSubor fork of https://github.com/mhowlett/NNanomsg")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Subor Advanced Technology Co., Ltd.")]
 [assembly: AssemblyProduct("NNanomsg")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
