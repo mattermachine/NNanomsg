@@ -1,39 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <Compile Include="..\NNanomsg\**\*.cs">
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-      <Visible>true</Visible>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="x64\nanomsg.dll" />
-    <None Remove="x86\nanomsg.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="x64\nanomsg.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\nanomsg.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>Subor.NNanomsg.NETStandard</PackageId>
     <Authors>mhowlett (minor changes and packaged by Subor)</Authors>
-    <RepositoryUrl>https://github.com/subor/NNanomsg</RepositoryUrl>
-    <PackageTags>subor nanomsg</PackageTags>
-    <SignAssembly>true</SignAssembly>
+    <RepositoryUrl>https://github.com/zplus/NNanomsg</RepositoryUrl>
+    <PackageTags>subor nnanomsg nanomsg z+ zplus</PackageTags>
+    <SignAssembly>false</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>subor_vs_sign.pfx</AssemblyOriginatorKeyFile>
+    <PackageVersion>0.5.2</PackageVersion>
+    <!-- Default folder(s) into which Content are placed when packed -->
+    <ContentTargetFolders></ContentTargetFolders>
+    <!-- Force PackageReference format -->
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
+  
+  <ItemGroup>
+    
+    <Compile Include="..\NNanomsg\**\*.cs" />
+      
+  </ItemGroup>
 
+  <!--ItemGroup>
+    <None Remove="runtimes" />
+  </ItemGroup-->
+
+  <ItemGroup>
+    <Content Include="runtimes\**" PackagePath="runtimes" Visible="false" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
+    <PackageProjectUrl>https://github.com/subor</PackageProjectUrl>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
