@@ -33,7 +33,7 @@ namespace NNanomsg
 
     /// <summary>
     /// This class can allow platforms to provide a custom method for loading the nanomsg library.
-    /// 
+    ///
     /// This uses the convention of a library being in:
     ///   Win32 - [architecture]/module.dll
     ///   Posix - [architecture]/libmodule.so
@@ -46,25 +46,27 @@ namespace NNanomsg
         [DllImport("kernel32.dll")]
         static extern IntPtr GetProcAddress(IntPtr hModule, String procname);
 
-        [DllImport("libdl.so")]
+        [DllImport("libdl.dylib")]
         static extern IntPtr dlopen(String fileName, int flags);
 
-        [DllImport("libdl.so")]
+        [DllImport("libdl.dylib")]
         static extern IntPtr dlerror();
 
-        [DllImport("libdl.so")]
+        [DllImport("libdl.dylib")]
         static extern IntPtr dlsym(IntPtr handle, String symbol);
 
 
         static NanomsgLibraryLoader()
         {
-            if (Environment.OSVersion.Platform.ToString().Contains("Win32"))
+            bool isWindows = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+            bool isUnix = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+            bool isOSX = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+
+            if (isWindows)
             {
                 CustomLoadLibrary = LoadWindowsLibrary;
             }
-            else if (Environment.OSVersion.Platform == PlatformID.Unix ||
-                     Environment.OSVersion.Platform == PlatformID.MacOSX ||
-                     (int)Environment.OSVersion.Platform == 128)
+            else if (isUnix || isOSX || (int)Environment.OSVersion.Platform == 128)
             {
                 CustomLoadLibrary = LoadPosixLibrary;
             }
@@ -93,8 +95,8 @@ namespace NNanomsg
             var paths = new[]
                 {
                     calculatexdir(assemblyDirectory, "net40", libFile),
-                    Path.Combine(assemblyDirectory, "bin", Environment.Is64BitProcess ? "x64" : "x86", libFile),  
-                    Path.Combine(assemblyDirectory, Environment.Is64BitProcess ? "x64" : "x86", libFile),  
+                    Path.Combine(assemblyDirectory, "bin", Environment.Is64BitProcess ? "x64" : "x86", libFile),
+                    Path.Combine(assemblyDirectory, Environment.Is64BitProcess ? "x64" : "x86", libFile),
                     Path.Combine(assemblyDirectory, libFile),
 
                     Path.Combine(rootDirectory, "bin", Environment.Is64BitProcess ? "x64" : "x86", libFile),
@@ -128,8 +130,15 @@ namespace NNanomsg
 
         static IntPtr LoadPosixLibrary(string libName, out SymbolLookupDelegate symbolLookup)
         {
+            var libExt = ".so";
+            bool isOSX = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+            if (isOSX)
+            {
+                libExt = ".dylib";
+            }
+
             const int RTLD_NOW = 2;
-            string libFile = "lib" + libName.ToLower() + ".so";
+            string libFile = $"lib{libName.ToLower()}{libExt}";
             string rootDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string assemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
@@ -192,8 +201,8 @@ namespace NNanomsg
 
         static void InitializeDelegates(IntPtr nanomsgAddr, NanomsgLibraryLoader.SymbolLookupDelegate lookup)
         {
-            // When running under mono and the native nanomsg libraries are in a non-standard location (e.g. are placed in application_dir/x86|x64), 
-            // we cannot just load the native libraries and have everything automatically work. Hence all these delegates. 
+            // When running under mono and the native nanomsg libraries are in a non-standard location (e.g. are placed in application_dir/x86|x64),
+            // we cannot just load the native libraries and have everything automatically work. Hence all these delegates.
 
             // TODO: The performance impact of this over conventional P/Invoke is evidently not good - there is about a 50% increase in overhead.
             // http://ybeernet.blogspot.com/2011/03/techniques-of-calling-unmanaged-code.html
@@ -202,11 +211,11 @@ namespace NNanomsg
             // http://www.mono-project.com/Interop_with_Native_Libraries
             // but this requires config file entries.
 
-            // Perhaps the method of calling native methods would better depend on which platform is being used. 
+            // Perhaps the method of calling native methods would better depend on which platform is being used.
 
-            // anyway, delegates work everywhere so that's what we'll use for now. get it working first, optimize later.. 
+            // anyway, delegates work everywhere so that's what we'll use for now. get it working first, optimize later..
 
-            // in many scenarios it won't matter anyway - sending or receiving data, over TCP at least - will dwarf 
+            // in many scenarios it won't matter anyway - sending or receiving data, over TCP at least - will dwarf
             // the overhead of calling the delegate.
 
             nn_socket = (nn_socket_delegate)Marshal.GetDelegateForFunctionPointer(lookup(nanomsgAddr, "nn_socket"), typeof(nn_socket_delegate));
@@ -283,7 +292,7 @@ namespace NNanomsg
         public delegate void nn_term_delegate();
         public static nn_term_delegate nn_term;
 
-        // note: I was encountering problems I didn't understand with setsockopt on linux x64. If you make changes here 
+        // note: I was encountering problems I didn't understand with setsockopt on linux x64. If you make changes here
         // (in particular add additional delegates) be sure to test well on that platform.
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate int nn_setsockopt_delegate(int s, int level, int option, IntPtr optval, int optvallen);
